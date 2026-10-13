@@ -1,0 +1,345 @@
+
+/* =========================================================
+   CivicAid — Global Design Foundation
+   Phase 4: Frontend Design System
+   ========================================================= */
+
+:root {
+  /* Brand palette */
+  --color-primary: #145c58;
+  --color-primary-hover: #104a47;
+  --color-primary-active: #0b3d3a;
+  --color-primary-soft: #e8f3f1;
+
+  --color-secondary: #356e91;
+  --color-secondary-soft: #eaf2f8;
+
+  /* Page and surface colors */
+  --color-page: #f7f9f8;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f0f4f2;
+  --color-border: #dce5e1;
+  --color-border-strong: #bdccc6;
+
+  /* Text colors */
+  --color-text: #20312e;
+  --color-text-secondary: #52635e;
+  --color-text-muted: #687873;
+  --color-text-inverse: #ffffff;
+
+  /* Semantic colors */
+  --color-success: #246b45;
+  --color-success-soft: #e9f5ed;
+
+  --color-warning: #875b12;
+  --color-warning-soft: #fff4d9;
+
+  --color-danger: #a32f32;
+  --color-danger-soft: #fceced;
+
+  --color-info: #285e85;
+  --color-info-soft: #eaf3fa;
+
+  /* Accessibility */
+  --color-focus: #a96a08;
+  --focus-ring: 0 0 0 3px rgba(169, 106, 8, 0.3);
+
+  /* Typography */
+  --font-sans:
+    Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --font-mono:
+    "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* Layout */
+  --content-width: 1200px;
+  --content-width-reading: 760px;
+  --page-gutter: 1.5rem;
+
+  /* Borders and shapes */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 3px rgba(24, 48, 41, 0.06);
+  --shadow-md:
+    0 4px 12px rgba(24, 48, 41, 0.08);
+  --shadow-lg:
+    0 12px 28px rgba(24, 48, 41, 0.1);
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 220ms;
+  --ease-standard: ease;
+
+  color-scheme: light;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  font-weight: 400;
+  color: var(--color-text);
+  background: var(--color-page);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Predictable sizing across the application */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Document foundation */
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  scroll-padding-top: var(--space-6);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  background: var(--color-page);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Media should remain within its containing layout */
+
+img,
+picture,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+img,
+picture,
+video {
+  display: block;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+a {
+  color: var(--color-primary);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 0.08em;
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Consistent heading defaults */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block: 0;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-weight: 650;
+  line-height: var(--line-height-tight);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, var(--font-size-4xl));
+  letter-spacing: -0.035em;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, var(--font-size-3xl));
+  letter-spacing: -0.025em;
+}
+
+h3 {
+  font-size: clamp(1.125rem, 2vw, var(--font-size-xl));
+}
+
+p {
+  margin-block: 0;
+  line-height: var(--line-height-relaxed);
+}
+
+ul,
+ol {
+  padding-inline-start: 1.5rem;
+}
+
+/* Keyboard accessibility */
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Respect the existing accessible skip-link pattern */
+
+.skip-link {
+  position: absolute;
+  z-index: 1000;
+  top: var(--space-2);
+  left: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  transform: translateY(-160%);
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  color: var(--color-text-inverse);
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* Accessible selection and disabled controls */
+
+::selection {
+  background: var(--color-primary-soft);
+  color: var(--color-text);
+}
+
+:disabled {
+  cursor: not-allowed;
+}
+
+/* Form controls should not shrink below their container */
+
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Tables should preserve readable text */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Use a restrained transition foundation */
+
+a,
+button,
+input,
+select,
+textarea {
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+/* Balanced desktop and mobile layout */
+
+@media (max-width: 768px) {
+  :root {
+    --page-gutter: 1rem;
+  }
+
+  html {
+    scroll-padding-top: var(--space-4);
+  }
+
+  h1 {
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Avoid unnecessary animation for users who prefer reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
