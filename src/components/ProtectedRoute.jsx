@@ -1,36 +1,69 @@
+import { useEffect, useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import api from '../services/api'
 
-import { Navigate, useLocation } from 'react-router'
-import { useAuth } from '../context/AuthContext.jsx'
+export default function ProtectedRoute({ children, requireAdmin = false }) {
+  const { isAuthenticated, loading, signOut } = useAuth()
+  const [adminCheck, setAdminCheck] = useState('checking')
 
-function ProtectedRoute({ children }) {
-  const { isAuthenticated, isLoading } = useAuth()
-  const location = useLocation()
+  useEffect(() => {
+    if (!requireAdmin || loading || !isAuthenticated) {
+      return
+    }
 
-  if (isLoading) {
-    return (
-      <main
-        className="auth-main"
-        aria-busy="true"
-        aria-live="polite"
-      >
-        <div className="auth-card">
-          <p role="status">Restoring your CivicAid session…</p>
-        </div>
-      </main>
-    )
+    let cancelled = false
+
+    async function verifyAdmin() {
+      try {
+        await api.get('/admin/schemes')
+
+        if (!cancelled) {
+          setAdminCheck('admin')
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setAdminCheck(
+            error.response?.status === 401 ||
+              error.response?.status === 403
+              ? 'unauthorized'
+              : 'error'
+          )
+        }
+      }
+    }
+
+    verifyAdmin()
+
+    return () => {
+      cancelled = true
+    }
+  }, [requireAdmin, loading, isAuthenticated])
+
+  if (loading) {
+    return <p>Loading...</p>
   }
 
   if (!isAuthenticated) {
-    return (
-      <Navigate
-        to="/login"
-        replace
-        state={{ from: location }}
-      />
-    )
+    return <Navigate to="/login" replace />
+  }
+
+  if (!requireAdmin) {
+    return children
+  }
+
+  if (adminCheck === 'checking') {
+    return <p>Verifying administrator access...</p>
+  }
+
+  if (adminCheck !== 'admin') {
+    if (adminCheck === 'unauthorized') {
+      signOut()
+      return <Navigate to="/admin/login" replace />
+    }
+
+    return <p>Unable to verify administrator access. Please try again.</p>
   }
 
   return children
 }
-
-export default ProtectedRoute
